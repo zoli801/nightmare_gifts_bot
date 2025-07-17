@@ -3,478 +3,666 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Правила Telegram-бота</title>
+    <title>Правила NFT Roulette | Кошмарный Режим</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --darkest: #0a050f;
+            --darker: #1a1129;
+            --dark: #2a1a42;
+            --purple: #5d2e8e;
+            --purple-light: #8a4dca;
+            --blue: #2e3a8e;
+            --accent: #ff3860;
+            --blood: #c1121f;
+            --glow: #ff00ff;
+            --text: #e0d6eb;
         }
 
         body {
-            background: linear-gradient(135deg, #1e5799, #207cca, #2989d8, #1e5799);
+            background: radial-gradient(circle at center, var(--darkest) 0%, #000 100%);
+            color: var(--text);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        header {
-            background: #0088cc;
-            color: white;
-            padding: 20px;
-            text-align: center;
+            font-family: 'Roboto', sans-serif;
             position: relative;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(138, 77, 202, 0.1) 0%, transparent 15%),
+                radial-gradient(circle at 80% 70%, rgba(46, 58, 142, 0.1) 0%, transparent 15%),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0.1) 0px,
+                    rgba(0, 0, 0, 0.1) 1px,
+                    transparent 1px,
+                    transparent 11px
+                );
+            z-index: -1;
+        }
+
+        /* Кровавые капли */
+        .blood-drop {
+            position: absolute;
+            width: 3px;
+            height: 8px;
+            background: var(--blood);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0.7;
+            z-index: -1;
+            animation: blood-drip 8s infinite ease-in-out;
+        }
+
+        /* Шапка сайта */
+        header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            background: rgba(10, 5, 15, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--purple);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple), var(--blue), var(--accent));
+            animation: gradient-animation 4s ease infinite;
+            background-size: 300% 300%;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .logo i {
-            font-size: 36px;
-            color: #fff;
-            background: #34b7f1;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent);
+            font-family: 'Creepster', cursive;
+            letter-spacing: 3px;
+            animation: pulsate 2s infinite alternate;
         }
 
         h1 {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--purple-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(138, 77, 202, 0.5);
         }
 
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+            color: #c0b0d0;
+        }
+
+        /* Языковые вкладки */
         .tabs {
             display: flex;
-            background: #f0f2f5;
-            border-bottom: 1px solid #e0e0e0;
+            justify-content: center;
+            margin: 1.5rem auto 2rem;
+            max-width: 500px;
+            background: rgba(42, 26, 66, 0.5);
+            border-radius: 50px;
+            padding: 5px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--purple);
+            box-shadow: 0 0 15px rgba(93, 46, 142, 0.4);
         }
 
         .tab {
-            flex: 1;
-            text-align: center;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 500;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #6b6b6b;
-            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            text-align: center;
+            flex: 1;
+            color: var(--text);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
         }
 
         .tab.active {
-            color: #0088cc;
-            border-bottom: 3px solid #0088cc;
-            background: white;
+            background: linear-gradient(90deg, var(--purple), var(--blue));
+            box-shadow: 0 0 20px rgba(138, 77, 202, 0.7);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
 
-        .content {
-            padding: 30px;
-            max-height: 500px;
-            overflow-y: auto;
+        /* Основной контент */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
         }
 
-        .rules-container {
+        .rules-section {
             display: none;
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        .rules-container.active {
+        .rules-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
-        .rule {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding: 15px;
+        /* Карточки правил */
+        .rule-card {
+            background: linear-gradient(145deg, rgba(42, 26, 66, 0.7), rgba(26, 17, 41, 0.7));
             border-radius: 12px;
-            background: #f9f9f9;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 4px solid #0088cc;
+            padding: 1.8rem;
+            margin-bottom: 1.8rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--purple);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
 
-        .rule:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            background: white;
+        .rule-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(138, 77, 202, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
 
-        .icon {
-            font-size: 24px;
-            min-width: 40px;
-            height: 40px;
+        .rule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(138, 77, 202, 0.4), 0 0 30px rgba(255, 56, 96, 0.3);
+            border-color: var(--accent);
+        }
+
+        .rule-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--purple), var(--accent));
+        }
+
+        .rule-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .rule-number {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--purple), var(--accent));
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .rule-content {
-            flex: 1;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-right: 12px;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 10px var(--purple-light);
         }
 
         .rule-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #2a2a2a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .rule-text {
-            color: #4a4a4a;
-            line-height: 1.5;
+        .rule-content {
+            padding-left: 48px;
+            color: #d0c0e0;
         }
 
-        .luck {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            background: #e3f2fd;
-            border-radius: 12px;
-            font-size: 20px;
-            font-weight: 600;
-            color: #0088cc;
-            animation: pulse 2s infinite;
-        }
-
+        /* Подвал */
         footer {
-            padding: 20px;
             text-align: center;
-            color: #6b6b6b;
-            background: #f0f2f5;
-            font-size: 14px;
+            padding: 2.5rem 1rem;
+            background: rgba(10, 5, 15, 0.85);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--purple);
+            margin-top: 2rem;
+            position: relative;
         }
 
+        .luck-text {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent);
+            animation: pulsate 1.5s infinite alternate;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            color: #a090b0;
+        }
+
+        /* Анимации */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @media (max-width: 600px) {
-            .rule {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+        @keyframes pulsate {
+            0% { opacity: 0.7; text-shadow: 0 0 10px var(--accent); }
+            100% { opacity: 1; text-shadow: 0 0 25px var(--accent), 0 0 40px var(--blood); }
+        }
+
+        @keyframes blood-drip {
+            0% { transform: translateY(-50px); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
             }
 
-            .icon {
-                margin-bottom: 10px;
-            }
-
-            .content {
-                padding: 20px 15px;
+            .logo {
+                font-size: 2.5rem;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 1.8rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+                max-width: 300px;
+                border-radius: 15px;
             }
 
             .tab {
-                padding: 12px;
-                font-size: 16px;
+                padding: 0.8rem;
+                margin: 3px;
+                border-radius: 15px;
+            }
+
+            .rule-title {
+                font-size: 1.3rem;
+                flex-wrap: wrap;
+            }
+
+            .rule-content {
+                padding-left: 0;
+            }
+
+            .luck-text {
+                font-size: 1.5rem;
+            }
+
+            .rule-card {
+                padding: 1.2rem;
+            }
+
+            .rule-icon {
+                margin-bottom: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .rule-title {
+                font-size: 1.1rem;
+            }
+
+            .rule-content {
+                font-size: 0.9rem;
+            }
+
+            .luck-text {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
+    <!-- Кровавые капли (увеличено количество) -->
+    <div class="blood-drop" style="left: 5%; animation-delay: 0s;"></div>
+    <div class="blood-drop" style="left: 15%; animation-delay: 1s;"></div>
+    <div class="blood-drop" style="left: 25%; animation-delay: 2s;"></div>
+    <div class="blood-drop" style="left: 35%; animation-delay: 3s;"></div>
+    <div class="blood-drop" style="left: 45%; animation-delay: 4s;"></div>
+    <div class="blood-drop" style="left: 55%; animation-delay: 5s;"></div>
+    <div class="blood-drop" style="left: 65%; animation-delay: 6s;"></div>
+    <div class="blood-drop" style="left: 75%; animation-delay: 7s;"></div>
+    <div class="blood-drop" style="left: 85%; animation-delay: 8s;"></div>
+    <div class="blood-drop" style="left: 95%; animation-delay: 9s;"></div>
+    <div class="blood-drop" style="left: 10%; animation-delay: 10s;"></div>
+    <div class="blood-drop" style="left: 20%; animation-delay: 11s;"></div>
+    <div class="blood-drop" style="left: 30%; animation-delay: 12s;"></div>
+    <div class="blood-drop" style="left: 40%; animation-delay: 13s;"></div>
+    <div class="blood-drop" style="left: 50%; animation-delay: 14s;"></div>
+    <div class="blood-drop" style="left: 60%; animation-delay: 15s;"></div>
+    <div class="blood-drop" style="left: 70%; animation-delay: 16s;"></div>
+    <div class="blood-drop" style="left: 80%; animation-delay: 17s;"></div>
+    <div class="blood-drop" style="left: 90%; animation-delay: 18s;"></div>
+    <div class="blood-drop" style="left: 3%; animation-delay: 19s;"></div>
+
     <header>
-        <div class="logo">
-            <i class="fab fa-telegram"></i>
-            <h1>Правила Telegram-бота</h1>
+        <div class="logo">NFT ROULETTE</div>
+        <h1>Правила Кошмарного Режима</h1>
+        <p class="subtitle">Ознакомьтесь с правилами перед тем, как войти в темный мир NFT рулетки. Одно неверное движение - и вы потеряны навсегда...</p>
+
+        <div class="tabs">
+            <div class="tab active" data-lang="ru">Русский</div>
+            <div class="tab" data-lang="en">English</div>
         </div>
     </header>
 
-    <div class="tabs">
-        <div class="tab active" data-lang="ru">Русский</div>
-        <div class="tab" data-lang="en">English</div>
-    </div>
-
-    <div class="content">
-        <!-- Русская версия -->
-        <div class="rules-container active" id="ru-rules">
-            <div class="rule">
-                <div class="icon" style="background-color: #FF6B6B;">
-                    <i class="fas fa-gift"></i>
+    <div class="container">
+        <!-- Русские правила -->
+        <div class="rules-section active" id="ru-rules">
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">1</span>
+                    <span class="rule-icon">🎁</span>
+                    <h3>Проклятые подарки</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Подарки в Telegram</div>
-                    <div class="rule-text">Отправленные в Telegram подарки нельзя отменить, вернуть или обменять на
-                        звёзды. Единственная доступная опция - скрыть их из видимости.
-                    </div>
-                </div>
+                <p class="rule-content">Дарённому коню в зубы не смотрят, но в Telegram подарки нельзя удалить или обменять — только скрыть в бездне!</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #4ECDC4;">
-                    <i class="fas fa-trophy"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">2</span>
+                    <span class="rule-icon">🏆</span>
+                    <h3>Трофеи из бездны</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Получение NFT</div>
-                    <div class="rule-text">Для получения выигранного NFT необходимо выполнить все условия, которые
-                        указаны ботом.
-                    </div>
-                </div>
+                <p class="rule-content">Чтобы получить выигранный NFT, нужно выполнить все условия, продиктованные ботом. Иначе трофей навсегда останется в тенях.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #FFD166;">
-                    <i class="fas fa-link"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">3</span>
+                    <span class="rule-icon">🔗</span>
+                    <h3>Переход через портал</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Передача NFT</div>
-                    <div class="rule-text">Передача прав на NFT осуществляется исключительно через официального партнёра
-                        проекта.
-                    </div>
-                </div>
+                <p class="rule-content">Передача NFT осуществляется только через официального хранителя порталов. Другие пути ведут в бездну.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #6A0572;">
-                    <i class="fas fa-gem"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">4</span>
+                    <span class="rule-icon">💎</span>
+                    <h3>Песок сквозь пальцы</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Внутриигровые бонусы</div>
-                    <div class="rule-text">Начисленные игровые очки и бонусы не подлежат возврату или обмену.</div>
-                </div>
+                <p class="rule-content">Игровые очки и бонусы исчезают навсегда - их нельзя вернуть или обменять, как ускользающие тени ночи.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #2F3E46;">
-                    <i class="fas fa-ban"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">5</span>
+                    <span class="rule-icon">🚫</span>
+                    <h3>Запретные ритуалы</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Запрещённые действия</div>
-                    <div class="rule-text">Строго запрещено использование автоматизированных скриптов (включая DDoS),
-                        ботов или сторонних приложений, которые могут нарушить работу бота.
-                    </div>
-                </div>
+                <p class="rule-content">Любые попытки использования скриптов, ботов или тёмных приложений, нарушающих работу системы, приведут к немедленному изгнанию.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #D1495B;">
-                    <i class="fas fa-exclamation-triangle"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">6</span>
+                    <span class="rule-icon">⚠️</span>
+                    <h3>Вечное проклятие</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Нарушения и блокировка</div>
-                    <div class="rule-text">Любые попытки мошенничества, рассылки спама или оскорбления других
-                        пользователей приведут к немедленной блокировке без возврата средств.
-                    </div>
-                </div>
+                <p class="rule-content">Мошенничество, спам или оскорбления других искателей приведут к вечному заточению в цифровом аду без возможности возврата.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #5B8E7D;">
-                    <i class="fas fa-user-shield"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">7</span>
+                    <span class="rule-icon">📌</span>
+                    <h3>Изменение реальности</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Права администрации</div>
-                    <div class="rule-text">Администрация оставляет за собой право изменять условия использования и
-                        приостанавливать доступ к боту в экстренных случаях без предварительного уведомления.
-                    </div>
-                </div>
+                <p class="rule-content">Хранители порталов оставляют за собой право изменять законы реальности и закрывать врата без предупреждения.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #3A5A40;">
-                    <i class="fas fa-clipboard-list"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">8</span>
+                    <span class="rule-icon">📃</span>
+                    <h3>Хроники теней</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Хранение данных</div>
-                    <div class="rule-text">Все сообщения и журналы взаимодействий сохраняются для обеспечения
-                        безопасности и могут использоваться при расследовании нарушений.
-                    </div>
-                </div>
+                <p class="rule-content">Все ваши действия записываются в Книгу Теней и могут быть использованы для суда над нарушителями.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #5D2A42;">
-                    <i class="fas fa-dice"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">9</span>
+                    <span class="rule-icon">🎰</span>
+                    <h3>Путь в неизвестность</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Подтверждение рисков</div>
-                    <div class="rule-text">Запуская прокрутку рулетки, пользователь подтверждает, что осознаёт возможные
-                        риски и использует бота на свой страх и риск.
-                    </div>
-                </div>
-            </div>
-
-            <div class="luck">
-                <i class="fas fa-clover"></i> Всем удачи! <i class="fas fa-clover"></i>
+                <p class="rule-content">Начиная вращение колеса, вы подтверждаете, что осознаёте все риски и идёте в темноту на свой страх и риск.</p>
             </div>
         </div>
 
-        <!-- Английская версия -->
-        <div class="rules-container" id="en-rules">
-            <div class="rule">
-                <div class="icon" style="background-color: #FF6B6B;">
-                    <i class="fas fa-gift"></i>
+        <!-- Английские правила -->
+        <div class="rules-section" id="en-rules">
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">1</span>
+                    <span class="rule-icon">🎁</span>
+                    <h3>Cursed Gifts</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Gifts in Telegram</div>
-                    <div class="rule-text">Gifts sent via Telegram cannot be canceled, refunded, or exchanged for stars.
-                        The only available option is to hide them from view.
-                    </div>
-                </div>
+                <p class="rule-content">Gifts in Telegram cannot be deleted or exchanged — they can only be hidden in the abyss!</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #4ECDC4;">
-                    <i class="fas fa-trophy"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">2</span>
+                    <span class="rule-icon">🏆</span>
+                    <h3>Abyssal Trophies</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">NFT Redemption</div>
-                    <div class="rule-text">To claim a won NFT, the user must fulfill all conditions specified by the
-                        bot.
-                    </div>
-                </div>
+                <p class="rule-content">To claim your NFT prize, you must fulfill all conditions dictated by the bot, lest the trophy remains forever in the shadows.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #FFD166;">
-                    <i class="fas fa-link"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">3</span>
+                    <span class="rule-icon">🔗</span>
+                    <h3>Portal Passage</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">NFT Transfer</div>
-                    <div class="rule-text">Transfer of NFT ownership is conducted exclusively through the project's
-                        authorized official partner.
-                    </div>
-                </div>
+                <p class="rule-content">NFT transfer occurs only through the official Gatekeeper. Other paths lead to the void.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #6A0572;">
-                    <i class="fas fa-gem"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">4</span>
+                    <span class="rule-icon">💎</span>
+                    <h3>Shifting Sands</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">In-Game Bonuses</div>
-                    <div class="rule-text">Awarded in-game points and bonuses are non-refundable and non-exchangeable.
-                    </div>
-                </div>
+                <p class="rule-content">Game points and bonuses vanish forever - they cannot be reclaimed or exchanged, like shadows fleeing the dawn.</p>
             </div>
 
-
-            <div class="rule">
-                <div class="icon" style="background-color: #2F3E46;">
-                    <i class="fas fa-ban"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">5</span>
+                    <span class="rule-icon">🚫</span>
+                    <h3>Forbidden Rituals</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Prohibited Actions</div>
-                    <div class="rule-text">The use of automated scripts (including DDoS), bots, or third-party
-                        applications that may disrupt the bot's operation is strictly prohibited.
-                    </div>
-                </div>
+                <p class="rule-content">Any use of scripts, bots, or dark applications that disrupt the system will result in immediate banishment.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #D1495B;">
-                    <i class="fas fa-exclamation-triangle"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">6</span>
+                    <span class="rule-icon">⚠️</span>
+                    <h3>Eternal Damnation</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Violations & Blocking</div>
-                    <div class="rule-text">Any attempts at fraud, spam distribution, or insults towards other users will
-                        result in immediate blocking without refund.
-                    </div>
-                </div>
+                <p class="rule-content">Fraud, spam, or insults will condemn you to eternal imprisonment in the digital inferno without hope of return.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #5B8E7D;">
-                    <i class="fas fa-user-shield"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">7</span>
+                    <span class="rule-icon">📌</span>
+                    <h3>Reality Alteration</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Administration Rights</div>
-                    <div class="rule-text">The administration reserves the right to modify terms of use and suspend
-                        access to the bot in emergency cases without prior notice.
-                    </div>
-                </div>
+                <p class="rule-content">The Gatekeepers reserve the right to alter reality's laws and seal the gates without warning.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #3A5A40;">
-                    <i class="fas fa-clipboard-list"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">8</span>
+                    <span class="rule-icon">📃</span>
+                    <h3>Chronicles of Shadows</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Data Retention</div>
-                    <div class="rule-text">All messages and interaction logs are stored for security purposes and may be
-                        used in violation investigations.
-                    </div>
-                </div>
+                <p class="rule-content">All your actions are recorded in the Book of Shadows and may be used in judgment against transgressors.</p>
             </div>
 
-            <div class="rule">
-                <div class="icon" style="background-color: #5D2A42;">
-                    <i class="fas fa-dice"></i>
+            <div class="rule-card">
+                <div class="rule-title">
+                    <span class="rule-number">9</span>
+                    <span class="rule-icon">🎰</span>
+                    <h3>Path into Darkness</h3>
                 </div>
-                <div class="rule-content">
-                    <div class="rule-title">Risk Acknowledgment</div>
-                    <div class="rule-text">By initiating a roulette spin, the user confirms awareness of potential risks
-                        and agrees to use the bot at their own risk.
-                    </div>
-                </div>
-            </div>
-
-            <div class="luck">
-                <i class="fas fa-clover"></i> Good luck to everyone! <i class="fas fa-clover"></i>
+                <p class="rule-content">By spinning the wheel, you confirm awareness of all risks and venture into darkness at your own peril.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Telegram Bot Rules & Guidelines | Updated: July 2024</p>
+        <div class="luck-text">🍀 Fear luck... Dread fortune! 🍀</div>
+        <p class="copyright">© 2025 NFT Roulette: Кошмарное Издание. Все пути ведут во тьму.</p>
     </footer>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tabs = document.querySelectorAll('.tab');
-        const rulesContainers = document.querySelectorAll('.rules-container');
+    <script>
+        // Функция создания кровавых капель
+        function createBloodDrops() {
+            const dropsContainer = document.body;
+            for (let i = 0; i < 30; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('blood-drop');
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Удаляем активный класс у всех вкладок
-                tabs.forEach(t => t.classList.remove('active'));
-                // Добавляем активный класс к выбранной вкладке
-                tab.classList.add('active');
+                // Разный размер капель
+                const size = 2 + Math.random() * 3;
+                drop.style.width = `${size}px`;
+                drop.style.height = `${size * 2.5}px`;
 
-                // Скрываем все контейнеры с правилами
-                rulesContainers.forEach(container => {
-                    container.classList.remove('active');
+                // Разное расположение
+                drop.style.left = `${Math.random() * 100}%`;
+
+                // Разная скорость анимации
+                const duration = 5 + Math.random() * 10;
+                drop.style.animation = `blood-drip ${duration}s infinite ease-in-out`;
+
+                // Разная задержка
+                drop.style.animationDelay = `${Math.random() * 20}s`;
+
+                dropsContainer.appendChild(drop);
+            }
+        }
+
+        // Переключение языков
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Обновление активной вкладки
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // Показать соответствующий раздел правил
+                const lang = this.getAttribute('data-lang');
+                document.querySelectorAll('.rules-section').forEach(section => {
+                    section.classList.remove('active');
                 });
-
-                // Показываем контейнер с правилами, соответствующий выбранной вкладке
-                const lang = tab.getAttribute('data-lang');
                 document.getElementById(`${lang}-rules`).classList.add('active');
+
+                // Анимация
+                const rulesSection = document.getElementById(`${lang}-rules`);
+                rulesSection.style.animation = 'none';
+                setTimeout(() => {
+                    rulesSection.style.animation = 'fadeIn 0.8s ease forwards';
+                }, 10);
             });
         });
-    });
-</script>
+
+        // Эффект при наведении на карточки
+        document.querySelectorAll('.rule-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+                this.style.boxShadow = '0 10px 25px rgba(138, 77, 202, 0.4), 0 0 30px rgba(255, 56, 96, 0.3)';
+                this.style.borderColor = 'var(--accent)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.5)';
+                this.style.borderColor = 'var(--purple)';
+            });
+        });
+
+        // Инициализация при загрузке
+        window.addEventListener('load', function() {
+            createBloodDrops();
+
+            // Случайное мерцание элементов
+            setInterval(() => {
+                const randomCard = document.querySelectorAll('.rule-card')[Math.floor(Math.random() * 9)];
+                randomCard.style.boxShadow = '0 0 30px rgba(255, 56, 96, 0.6)';
+                setTimeout(() => {
+                    randomCard.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.5)';
+                }, 300);
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
